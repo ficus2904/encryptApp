@@ -42,7 +42,7 @@ function toXOR(oldstr, oldkey) {
         let one = str.charCodeAt(i);
         let two = key.charCodeAt(i);
         let xor = one ^ two;
-        enc += String.fromCharCode(xor + str.length)
+        enc += String.fromCharCode(xor + str.length + 65)
     }
     return enc;
 }
@@ -51,7 +51,7 @@ function fromXOR(oldstr, oldkey) {
     let key = nKey(str, oldkey);
     let enc = "";
     for (let i = 0; i < str.length; i++) {
-        let one = str.charCodeAt(i) - str.length;
+        let one = str.charCodeAt(i) - str.length - 65;
         let two = key.charCodeAt(i);
         let xor = one ^ two;
         enc += String.fromCharCode(xor)
