@@ -17,22 +17,6 @@ function nKey(str, key) {
           return key.slice(0, -(key.length - str.length))
     }
 }
-function normalizeKey(str, key) {
-    if (str.length > key.length) {
-        let newKey = key;
-        for (let i = 0; Math.ceil(str.length / key.length) - 1 > i; i++) {
-          newKey += key;
-        }
-        if (newKey.length > str.length) {
-          newKey = newKey.slice(0, -(newKey.length - str.length));
-        }
-        return newKey.toUpperCase();
-    } else if (str.length == key.length) {
-          return key
-    } else if (str.length < key.length) {
-          return key.slice(0, -(key.length - str.length))
-    }
-}
 
 function toXOR(oldstr, oldkey) {
     let str = String(oldstr);
@@ -42,7 +26,7 @@ function toXOR(oldstr, oldkey) {
         let one = str.charCodeAt(i);
         let two = key.charCodeAt(i);
         let xor = one ^ two;
-        enc += String.fromCharCode(xor + str.length + 65)
+        enc += String.fromCharCode(xor + str.length * str.length)
     }
     return enc;
 }
@@ -51,7 +35,7 @@ function fromXOR(oldstr, oldkey) {
     let key = nKey(str, oldkey);
     let enc = "";
     for (let i = 0; i < str.length; i++) {
-        let one = str.charCodeAt(i) - str.length - 65;
+        let one = str.charCodeAt(i) - str.length * str.length;
         let two = key.charCodeAt(i);
         let xor = one ^ two;
         enc += String.fromCharCode(xor)
